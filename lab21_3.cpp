@@ -8,9 +8,10 @@
 using namespace std;
 
 struct student{
-
-    //Define struct student with four member (name ,id , gender, gpa);
-    
+	string name;
+	int num;
+	char gender;
+	double gpa;
 };
 
 struct course{
@@ -63,9 +64,8 @@ int main(){
 	
 	while(getline(student_file,textline)){
 		student s; 
-		
-		//Use sscanf() to split the values in textline and assign those values to the members of struct s;
-
+		char format[] = "%[^,],%d,%[^,],%f";
+		sscanf(textline.c_str(), format, s.name, s.num, s.gender, s.gpa);
 		allstudents.push_back(s); 		
 	}
 	
@@ -83,9 +83,9 @@ int main(){
 			if(textline == "> Students"){
 				state = 3;
 			}else{
-			
+	
+				lecture_list[].pushback(textline);
 			    //Append (push_back) textline to lecture_list[] of the recently added course in allcourses[];
-			    
 			}			
 		}else{
 			if(textline == "---------------------------------------"){
