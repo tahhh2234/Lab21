@@ -8,8 +8,8 @@
 using namespace std;
 
 struct student{
-	string name;
-	int num;
+	char name[100];
+	int id;
 	char gender;
 	double gpa;
 };
@@ -21,7 +21,7 @@ struct course{
 	vector<student *> student_list;
 };
 
-student * findstudent(vector<student> allstudents,int key){ //There is something wrong in this line.
+student * findstudent(vector<student> &allstudents,int key){
 	for(unsigned int i = 0; i < allstudents.size(); i++){
 		if(allstudents[i].id  == key) return &allstudents[i];
 	}
@@ -64,12 +64,13 @@ int main(){
 	
 	while(getline(student_file,textline)){
 		student s; 
-		char format[] = "%[^,],%d,%[^,],%f";
-		sscanf(textline.c_str(), format, s.name, s.num, s.gender, s.gpa);
+		char format[] = "%[^,],%d,%[^,],%lf";
+		sscanf(textline.c_str(), format, s.name, &s.id, &s.gender, &s.gpa);
 		allstudents.push_back(s); 		
 	}
 	
 	int state = 1;
+	int i = 0;
 	while(getline(course_file,textline)){
 		if(state == 1){
 			course c;
@@ -83,18 +84,15 @@ int main(){
 			if(textline == "> Students"){
 				state = 3;
 			}else{
-	
-				lecture_list[].pushback(textline);
-			    //Append (push_back) textline to lecture_list[] of the recently added course in allcourses[];
+				allcourses[i].lecture_list.push_back(textline);
 			}			
 		}else{
 			if(textline == "---------------------------------------"){
+				i++;
 				state = 1;
 			}else{
 				student *p = findstudent(allstudents,atof(textline.c_str()));
-				
-				//Append (push_back) p to student_list of the recently added course in allcourses[];
-				
+				allcourses[i].student_list.push_back(p);
 			}
 		}
 	}
